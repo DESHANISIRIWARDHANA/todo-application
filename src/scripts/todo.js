@@ -39,3 +39,47 @@ export function addTask(tasks, text) {
   if (!task) return tasks;
   return [...tasks, task];
 }
+
+/** Remove the task with the given id. */
+export function deleteTask(tasks, id) {
+  return tasks.filter((task) => task.id !== id);
+}
+
+/** Flip the completed flag for the task with the given id. */
+export function toggleTask(tasks, id) {
+  return tasks.map((task) =>
+    task.id === id ? { ...task, completed: !task.completed } : task
+  );
+}
+
+/** Replace the text of a task (ignored when the new text is empty). */
+export function editTask(tasks, id, text) {
+  const trimmed = String(text ?? '').trim();
+  if (trimmed.length === 0) return tasks;
+  return tasks.map((task) =>
+    task.id === id ? { ...task, text: trimmed.slice(0, 200) } : task
+  );
+}
+
+/** Remove every completed task. */
+export function clearCompleted(tasks) {
+  return tasks.filter((task) => !task.completed);
+}
+
+/** Return the subset of tasks matching the active filter. */
+export function filterTasks(tasks, filter) {
+  switch (filter) {
+    case 'active':
+      return tasks.filter((task) => !task.completed);
+    case 'completed':
+      return tasks.filter((task) => task.completed);
+    case 'all':
+    default:
+      return [...tasks];
+  }
+}
+
+/** Count of tasks still to do. */
+export function activeCount(tasks) {
+  return tasks.reduce((count, task) => (task.completed ? count : count + 1), 0);
+}
