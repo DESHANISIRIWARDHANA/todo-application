@@ -111,3 +111,4 @@ els.clear.addEventListener('click', () => {
 });
 
 render();
+els.input.focus();
