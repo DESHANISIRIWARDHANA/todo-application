@@ -220,3 +220,13 @@ body {
   color: var(--text);
   text-decoration: underline;
 }
+
+.app__credit {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.app__credit a {
+  color: var(--muted);
+}
